@@ -81,48 +81,25 @@
 	<tbody id = "tbody"></tbody>
 </table>
 <form id="search-form">
-		<input type="text" id="search-input" placeholder="Hae asiakasta">
-		<button type="button" id="search-btn">Hae</button>
+		<input type="text" id="hakusana" placeholder="Hae asiakasta">
+		<button type="button" id="search-btn" onclick="haeAsiakkaatTietty()">Hae</button>
 	</form>
 <span id="ilmo"></span>
 
 
 <script>
 
-function haeAsiakkaat() {
-	let url = "asiakkaat";
+function haeAsiakkaatTietty() {
+	let url = "asiakkaat?hakusana=" + document.getElementById("hakusana").value; 
 	let requestOptions = {
-			method: "GET",
-			headers: {"Content-Type": "application/x-www-form-urlencoded"} 
-	
-	};
-	fetch(url, requestOptions)
-	.then(response => response.json())
-	.then(response => printItems(response))
-	.catch(errorText => console.error("Fetch failed: " + errorText));
-}
-
-function searchAsiakkaat(hakusana) {
-    let url = "asiakkaat/haku?hakusana=" + encodeURIComponent(hakusana);
-    let requestOptions = {
         method: "GET",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-    };
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }       
+    };    
     fetch(url, requestOptions)
-        .then(response => response.json())
-        .then(response => printItems(response))
-        .catch(errorText => console.error("Fetch failed: " + errorText));
+    .then(response => response.json())//Muutetaan vastausteksti JSON-objektiksi 
+   	.then(response => printItems(response)) 
+   	.catch(errorText => console.error("Fetch failed: " + errorText));
 }
-
-document.getElementById("search-btn").addEventListener("click", function () {
-    let hakusana = document.getElementById("search-input").value;
-    if (hakusana.trim() !== "") {
-        console.log(hakusana);
-        searchAsiakkaat(hakusana); // Hae asiakastiedot hakusanalla
-    }
-});
 
 function printItems(respObjList) {
     document.getElementById("tbody").innerHTML = "";
@@ -136,6 +113,7 @@ function printItems(respObjList) {
             htmlStr+="<td>" + item.sukunimi + "</td>";
             htmlStr+="<td>" + item.puhelin + "</td>";
             htmlStr+="<td>" + item.sposti + "</td>";
+            htmlStr+="</tr>";
             //htmlStr+="<td><a href='muutaAsiakas.jsp?asiakas_id="+item.asiakas_id+"'>Muuta</a>&nbsp;";
             //htmlStr+="<span class='poista' onclick=varmistaPoisto('"+item.asiakas_id+"')";
         }
@@ -143,7 +121,7 @@ function printItems(respObjList) {
     document.getElementById("tbody").innerHTML = htmlStr;
 }
 
-haeAsiakkaat();
+haeAsiakkaatTietty();
 </script>
 </body>
 </html>
