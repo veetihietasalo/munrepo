@@ -130,7 +130,7 @@ function poistaAsiakas(asiakas_id, etunimi){
         }else if(responseObj.response==1){ 
 			document.getElementById("rivi_"+asiakas_id).style.backgroundColor="red";
 			alert("Asiakkaan " + decodeURI(etunimi) +" poisto onnistui."); //decodeURI() muutetaan enkoodatut merkit takaisin normaaliksi kirjoitukseksi
-			haeAutot();        	
+			haeAsiakkaatTietty();        	
 		}
    	})
    	.catch(errorText => console.error("Fetch failed: " + errorText));
