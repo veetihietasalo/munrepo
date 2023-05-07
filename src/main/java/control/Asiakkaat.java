@@ -66,7 +66,19 @@ public class Asiakkaat extends HttpServlet {
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Asiakkaat.doPut()");
-	}
+		//Luetaan JSON-tiedot PUT-pyynn�n bodysta ja luodaan niiden perusteella uusi auto
+			String strJSONInput = request.getReader().lines().collect(Collectors.joining());
+				//System.out.println("strJSONInput " + strJSONInput);		
+			Asiakas asiakas = new Gson().fromJson(strJSONInput, Asiakas.class);		
+			//System.out.println(auto);		
+			response.setContentType("application/json; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			Dao dao = new Dao();			
+			if(dao.changeItem(asiakas)){ //metodi palauttaa true/false
+				out.println("{\"response\":1}");  
+				out.println("{\"response\":0}");  
+			}		
+		}
 
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -4,11 +4,12 @@
 <html>
 <head>
 <script src="scripts/main.js"></script>
+<script src="scripts/io.js"></script>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <meta charset="ISO-8859-1">
 <title>Lisää uusi asiakas</title>
 </head>
-<body>
+<body onload="asetaFocus('etunimi')" onkeydown="tutkiKey(event, 'lisaa')">
 <form name="lomake">
 	<table>
 		<thead>	
