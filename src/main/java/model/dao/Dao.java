@@ -190,7 +190,7 @@ import model.Asiakas;
 				stmtPrep.setString(4, asiakas.getSposti());
 				stmtPrep.setInt(5, asiakas.getAsiakas_id());
 				stmtPrep.executeUpdate();	        
-			} catch (Exception e) {				
+			} catch (SQLException e) {				
 				e.printStackTrace();
 				paluuArvo=false;
 			} finally {

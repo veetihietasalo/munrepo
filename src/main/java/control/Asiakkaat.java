@@ -29,9 +29,10 @@ public class Asiakkaat extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Asiakkaat.doGet()");
 		String hakusana = request.getParameter("hakusana");
-		Dao dao = new Dao();
-		ArrayList<Asiakas> asiakkaat;
+		String asiakas_id = request.getParameter("asiakas_id");
 		String strJSON = "";
+		Dao dao = new Dao();
+		ArrayList<Asiakas> asiakkaat = dao.getAllItems();
 		if(hakusana!=null) {//Jos kutsun mukana tuli hakusana
 			if(!hakusana.equals("")) {//Jos hakusana ei ole tyhjä
 				asiakkaat = dao.getAllItems(hakusana); //Haetaan kaikki hakusanan mukaiset autot							
@@ -39,12 +40,16 @@ public class Asiakkaat extends HttpServlet {
 				asiakkaat = dao.getAllItems(); //Haetaan kaikki autot
 			}
 			strJSON = new Gson().toJson(asiakkaat);	
-		}		
+		} else if (asiakas_id!=null){
+			Asiakas asiakas = dao.getItem(Integer.parseInt(asiakas_id));
+			strJSON = new Gson().toJson(asiakas);	
+		} else {
+			asiakkaat = dao.getAllItems();
+			strJSON = new Gson().toJson(asiakkaat);	
+		}
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println(strJSON);
-		
-		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -68,9 +73,8 @@ public class Asiakkaat extends HttpServlet {
 		System.out.println("Asiakkaat.doPut()");
 		//Luetaan JSON-tiedot PUT-pyynn�n bodysta ja luodaan niiden perusteella uusi auto
 			String strJSONInput = request.getReader().lines().collect(Collectors.joining());
-				//System.out.println("strJSONInput " + strJSONInput);		
-			Asiakas asiakas = new Gson().fromJson(strJSONInput, Asiakas.class);		
-			//System.out.println(auto);		
+				System.out.println("strJSONInput " + strJSONInput);		
+			Asiakas asiakas = new Gson().fromJson(strJSONInput, Asiakas.class);			
 			response.setContentType("application/json; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			Dao dao = new Dao();			

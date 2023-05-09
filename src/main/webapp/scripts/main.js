@@ -32,8 +32,6 @@ function tutkiJaPaivita(){
 	}
 }
 
-
-
 function siivoa(teksti){
 	teksti=teksti.replace(/</g, "");//&lt;
 	teksti=teksti.replace(/>/g, "");//&gt;	

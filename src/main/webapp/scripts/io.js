@@ -55,7 +55,7 @@ function poistaAsiakas(asiakas_id, etunimi){
 
 function haeAsiakas() {		
     let url = "asiakkaat?asiakas_id=" + requestURLParam("asiakas_id"); 	
-	//console.log(url);
+	console.log(url);
     let requestOptions = {
         method: "GET",
         headers: { "Content-Type": "application/x-www-form-urlencoded" }       
