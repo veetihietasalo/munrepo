@@ -8,8 +8,7 @@ public class Asiakas {
 	private String sposti;
 	
 	public Asiakas() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public Asiakas(int asiakas_id, String etunimi, String sukunimi, String puhelin, String sposti) {

@@ -107,7 +107,7 @@ function paivitaTiedot(){
 	//console.log(formData);	
 	let url = "asiakkaat";    
     let requestOptions = {
-        method: "PUT", //Muutetaan auto
+        method: "PUT", //Muutetaan asiakas
         headers: { "Content-Type": "application/json; charset=UTF-8" },  
     	body: formData
     };    
@@ -116,9 +116,9 @@ function paivitaTiedot(){
    	.then(responseObj => {	
    		//console.log(responseObj);
    		if(responseObj.response==0){
-   			document.getElementById("ilmo").innerHTML = "Asiakkaan muutos epaonnistui.";	
+   			document.getElementById("ilmo").innerHTML = "Asiakkaan paivitys epaonnistui.";	
         }else if(responseObj.response==1){ 
-        	document.getElementById("ilmo").innerHTML = "Asiakkaan muutos onnistui.";
+        	document.getElementById("ilmo").innerHTML = "Asiakkaan paivitys onnistui.";
 			document.lomake.reset(); 	        	
 		}
    	})
